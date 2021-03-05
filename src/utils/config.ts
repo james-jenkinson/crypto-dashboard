@@ -1,5 +1,5 @@
 export const config = {
   routes: {
-    home: '/',
+    home: `${process.env.PUBLIC_URL}/`,
   },
 } as const
