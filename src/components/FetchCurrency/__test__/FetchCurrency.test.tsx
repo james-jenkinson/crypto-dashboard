@@ -24,7 +24,7 @@ describe('FetchCurrency', () => {
   it('should fetch coin data on submission', async () => {
     const fetchCoin = jest.fn()
     render(
-      <coinContext.Provider value={{ fetchCoin }}>
+      <coinContext.Provider value={{ fetchCoin, isLoading: false }}>
         <FetchCurrency />
       </coinContext.Provider>,
     )
