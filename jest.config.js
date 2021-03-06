@@ -1,3 +1,3 @@
 module.exports = {
-  setupFilesAfterEnv: ['<rootDir>/src/setuptests.ts'],
+  setupFilesAfterEnv: ['./src/setuptests.ts'],
 }
