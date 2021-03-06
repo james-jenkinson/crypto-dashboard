@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/crypto-dashboard/static/css/main.d7ae2190.chunk.css",
-    "main.js": "/crypto-dashboard/static/js/main.bd9bee7e.chunk.js",
-    "main.js.map": "/crypto-dashboard/static/js/main.bd9bee7e.chunk.js.map",
+    "main.js": "/crypto-dashboard/static/js/main.508772fe.chunk.js",
+    "main.js.map": "/crypto-dashboard/static/js/main.508772fe.chunk.js.map",
     "runtime-main.js": "/crypto-dashboard/static/js/runtime-main.d383e618.js",
     "runtime-main.js.map": "/crypto-dashboard/static/js/runtime-main.d383e618.js.map",
     "static/js/2.ab5db47d.chunk.js": "/crypto-dashboard/static/js/2.ab5db47d.chunk.js",
     "static/js/2.ab5db47d.chunk.js.map": "/crypto-dashboard/static/js/2.ab5db47d.chunk.js.map",
     "index.html": "/crypto-dashboard/index.html",
-    "precache-manifest.6cebf50c3ea56d2a1269a64228d3ae67.js": "/crypto-dashboard/precache-manifest.6cebf50c3ea56d2a1269a64228d3ae67.js",
+    "precache-manifest.a1b12c334c95fa15b6462f877aac5e62.js": "/crypto-dashboard/precache-manifest.a1b12c334c95fa15b6462f877aac5e62.js",
     "service-worker.js": "/crypto-dashboard/service-worker.js",
     "static/css/main.d7ae2190.chunk.css.map": "/crypto-dashboard/static/css/main.d7ae2190.chunk.css.map",
     "static/js/2.ab5db47d.chunk.js.LICENSE.txt": "/crypto-dashboard/static/js/2.ab5db47d.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.d383e618.js",
     "static/js/2.ab5db47d.chunk.js",
     "static/css/main.d7ae2190.chunk.css",
-    "static/js/main.bd9bee7e.chunk.js"
+    "static/js/main.508772fe.chunk.js"
   ]
 }
