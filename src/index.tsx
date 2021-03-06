@@ -5,16 +5,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import * as serviceWorker from './utils/serviceWorker'
 import Home from './pages/Home'
-import './index.css'
 import { config } from './utils/config'
+import CoinContext from './data/CoinContext'
+import './index.css'
 
 function App(): JSX.Element {
   return (
-    <Router>
-      <Routes>
-        <Route path={config.routes.home} element={<Home />} />
-      </Routes>
-    </Router>
+    <CoinContext>
+      <Router>
+        <Routes>
+          <Route path={config.routes.home} element={<Home />} />
+        </Routes>
+      </Router>
+    </CoinContext>
   )
 }
 

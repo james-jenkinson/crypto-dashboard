@@ -1,6 +1,8 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import FetchCurrency from '..'
+import { coinContext } from '../../../data/CoinContext'
 
 describe('FetchCurrency', () => {
   it('should contain text input', () => {
@@ -17,5 +19,22 @@ describe('FetchCurrency', () => {
     const submit = screen.getByRole('button', { name: 'Submit' })
 
     expect(submit).toBeInTheDocument()
+  })
+
+  it('should fetch coin data on submission', async () => {
+    const fetchCoin = jest.fn()
+    render(
+      <coinContext.Provider value={{ fetchCoin }}>
+        <FetchCurrency />
+      </coinContext.Provider>,
+    )
+
+    const input = screen.getByRole('textbox', { name: 'Currency' })
+    const form = screen.getByRole('form')
+
+    userEvent.type(input, 'my-coin')
+    fireEvent.submit(form)
+
+    await waitFor(() => expect(fetchCoin).toBeCalledWith('my-coin'))
   })
 })
