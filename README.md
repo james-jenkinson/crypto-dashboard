@@ -1,5 +1,10 @@
 ## Intro
 
+[![Deployment](https://github.com/james-jenkinson/crypto-dashboard/actions/workflows/deployment.yml/badge.svg)](https://github.com/james-jenkinson/crypto-dashboard/actions/workflows/deployment.yml)
+[![Linting](https://github.com/james-jenkinson/crypto-dashboard/actions/workflows/linting.yml/badge.svg)](https://github.com/james-jenkinson/crypto-dashboard/actions/workflows/linting.yml)
+[![Testing](https://github.com/james-jenkinson/crypto-dashboard/actions/workflows/testing.yml/badge.svg)](https://github.com/james-jenkinson/crypto-dashboard/actions/workflows/testing.yml)
+[![Type Check](https://github.com/james-jenkinson/crypto-dashboard/actions/workflows/typecheck.yml/badge.svg)](https://github.com/james-jenkinson/crypto-dashboard/actions/workflows/typecheck.yml)
+
 Hosted at https://james-jenkinson.github.io/crypto-dashboard/
 
 Welcome to the Cozero coding challenge!

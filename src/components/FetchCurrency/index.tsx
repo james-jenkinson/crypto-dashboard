@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useForm } from 'react-hook-form'
+import { coinContext } from '../../data/CoinContext'
 
 const FetchCurrency: React.FC = () => {
-  const onSubmit: React.FormEventHandler = (e) => {
-    e.preventDefault()
-    console.log(e)
+  const { fetchCoin } = useContext(coinContext)
+  const { handleSubmit, register } = useForm()
+  const onSubmit = (payload: { currency: string }) => {
+    fetchCoin(payload.currency)
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)} aria-label="fetch-currency">
       <label id="label-currency">Currency</label>
-      <input aria-labelledby="label-currency" />
+      <input name="currency" aria-labelledby="label-currency" ref={register} />
       <button type="submit">Submit</button>
     </form>
   )
