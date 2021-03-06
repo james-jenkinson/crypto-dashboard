@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import FetchCurrency from '../../components/FetchCurrency'
+import LoadingSpinner from '../../components/LoadingIndicator'
 import { coinContext } from '../../data/CoinContext'
 
 function Home(): JSX.Element {
@@ -8,7 +9,7 @@ function Home(): JSX.Element {
   return (
     <div>
       <FetchCurrency />
-      {isLoading && <span aria-label="loading">Loading</span>}
+      <LoadingSpinner isLoading={isLoading} />
     </div>
   )
 }
