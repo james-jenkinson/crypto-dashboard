@@ -6,6 +6,7 @@
     "type": "git",
     "url": "https://github.com/james-jenkinson/crypto-dashboard"
   },
+  "license": "UNLICENCED",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -16,6 +17,7 @@
     "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); react-scripts build && node scripts/sentry.js)"
   },
   "dependencies": {
+    "dexie": "^3.0.3",
     "history": "^5.0.0",
     "isomorphic-fetch": "^3.0.0",
     "react": "^16.13.1",
@@ -41,6 +43,7 @@
     "babel-plugin-import": "^1.13.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "fake-indexeddb": "^3.1.2",
     "lodash.merge": "^4.6.2",
     "prettier": "^2.1.1",
     "source-map-explorer": "^2.5.0",
