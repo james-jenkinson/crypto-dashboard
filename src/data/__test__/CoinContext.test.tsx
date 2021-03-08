@@ -7,7 +7,7 @@ jest.mock('../../services/coinGecko')
 
 describe('CoinContext', () => {
   const ExampleConsumer: React.FC = () => {
-    const { isLoading, coin, fetchCoin } = useContext(coinContext)
+    const { isLoading, coin, fetchCoin, pastSearches } = useContext(coinContext)
     useEffect(() => {
       fetchCoin('test')
     }, [])
@@ -16,6 +16,7 @@ describe('CoinContext', () => {
       <>
         <div>{isLoading ? 'LOADING' : 'NOT LOADING'}</div>
         <div>{coin?.name}</div>
+        <div>{pastSearches[0]?.term}</div>
       </>
     )
   }
@@ -73,6 +74,18 @@ describe('CoinContext', () => {
     )
 
     const coinName = await screen.findByText('coin-name')
+
+    expect(coinName).toBeInTheDocument()
+  })
+
+  it('should include search in search history', async () => {
+    render(
+      <CoinContext>
+        <ExampleConsumer />
+      </CoinContext>,
+    )
+
+    const coinName = await screen.findByText('test')
 
     expect(coinName).toBeInTheDocument()
   })

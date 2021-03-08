@@ -2,6 +2,10 @@
   "name": "dashboard",
   "version": "0.1.0",
   "homepage": "https://james-jenkinson.github.io/crypto-dashboard",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/james-jenkinson/crypto-dashboard"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -16,6 +16,7 @@ const TestCoinContext: React.FC<Props> = (props) => {
     coin: merge({}, props.coin) as Coin,
     isLoading: props.isLoading || false,
     fetchCoin: props.fetchCoin || (() => undefined),
+    pastSearches: [],
   }
   return <coinContext.Provider value={value}>{props.children}</coinContext.Provider>
 }
