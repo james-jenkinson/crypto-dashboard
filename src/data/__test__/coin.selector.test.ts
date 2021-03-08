@@ -1,3 +1,4 @@
+import { CoinResponse } from '../../services/coin'
 import { Coin } from '../coin'
 import { coinSelector } from '../coin.selector'
 
@@ -26,8 +27,29 @@ describe('Coin selector', () => {
         image: 'image',
         marketCapRank: 99,
         percentagePriceChange24h: 888,
+        positiveChange: true,
         symbol: 'symbol',
       } as Coin)
     })
+  })
+
+  it('should indicate when positive change', () => {
+    const coin = coinSelector({
+      market_data: {
+        price_change_percentage_24h: 1,
+      },
+    } as CoinResponse)
+
+    expect(coin.positiveChange).toBe(true)
+  })
+
+  it('should indicate when negative change', () => {
+    const coin = coinSelector({
+      market_data: {
+        price_change_percentage_24h: -1,
+      },
+    } as CoinResponse)
+
+    expect(coin.positiveChange).toBe(false)
   })
 })

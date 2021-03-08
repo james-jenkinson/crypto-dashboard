@@ -1,11 +1,16 @@
 import React, { useContext } from 'react'
 import { coinContext } from '../../data/CoinContext'
+import './coinDetails.css'
 
 const CoinDetails: React.FC = () => {
   const { coin } = useContext(coinContext)
   if (!coin) {
     return null
   }
+
+  const priceIndicatorClassName = coin.positiveChange
+    ? 'coin-details__price-indicator--positive'
+    : 'coin-details__price-indicator--negative'
 
   return (
     <>
@@ -23,7 +28,7 @@ const CoinDetails: React.FC = () => {
           </tr>
           <tr>
             <th>Price (USD)</th>
-            <td>{coin.currentPriceUsd}</td>
+            <td className={priceIndicatorClassName}>{coin.currentPriceUsd}</td>
           </tr>
           <tr>
             <th>Symbol</th>
@@ -31,7 +36,7 @@ const CoinDetails: React.FC = () => {
           </tr>
           <tr>
             <th>Price change over last 24 hours</th>
-            <td>{coin.percentagePriceChange24h}</td>
+            <td className={priceIndicatorClassName}>{coin.percentagePriceChange24h}</td>
           </tr>
         </tbody>
       </table>

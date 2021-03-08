@@ -77,4 +77,62 @@ describe('CoinDetails', () => {
     const withinRow = within(row)
     expect(withinRow.getByText('77')).toBeInTheDocument()
   })
+
+  it('should indicate a positive price change', () => {
+    render(
+      <coinContext.Provider
+        value={{
+          isLoading: false,
+          fetchCoin: () => undefined,
+          coin: {
+            positiveChange: true,
+            percentagePriceChange24h: 1,
+            currentPriceUsd: '$1',
+          } as Coin,
+        }}
+      >
+        <CoinDetails />
+      </coinContext.Provider>,
+    )
+
+    const priceChangeRow = screen
+      .getByText('Price change over last 24 hours')
+      .closest('tr') as HTMLElement
+    const priceChangeCell = within(priceChangeRow).getByText('1')
+
+    const priceRow = screen.getByText('Price (USD)').closest('tr') as HTMLElement
+    const priceCell = within(priceRow).getByText('$1')
+
+    expect(priceChangeCell).toHaveClass('coin-details__price-indicator--positive')
+    expect(priceCell).toHaveClass('coin-details__price-indicator--positive')
+  })
+
+  it('should indicate a positive price change', () => {
+    render(
+      <coinContext.Provider
+        value={{
+          isLoading: false,
+          fetchCoin: () => undefined,
+          coin: {
+            positiveChange: false,
+            percentagePriceChange24h: -1,
+            currentPriceUsd: '$1',
+          } as Coin,
+        }}
+      >
+        <CoinDetails />
+      </coinContext.Provider>,
+    )
+
+    const priceChangeRow = screen
+      .getByText('Price change over last 24 hours')
+      .closest('tr') as HTMLElement
+    const priceChangeCell = within(priceChangeRow).getByText('-1')
+
+    const priceRow = screen.getByText('Price (USD)').closest('tr') as HTMLElement
+    const priceCell = within(priceRow).getByText('$1')
+
+    expect(priceChangeCell).toHaveClass('coin-details__price-indicator--negative')
+    expect(priceCell).toHaveClass('coin-details__price-indicator--negative')
+  })
 })
