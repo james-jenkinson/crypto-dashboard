@@ -1,7 +1,5 @@
 import React from 'react'
 import { render, screen, within } from '@testing-library/react'
-import { Coin } from '../../../data/coin'
-import { coinContext } from '../../../data/CoinContext'
 import CoinDetails from '..'
 import TestCoinContext from '../../../testUtils/TestCoinContext'
 

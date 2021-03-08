@@ -1,8 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Home from '..'
-import { coinContext } from '../../../data/CoinContext'
-import { Coin } from '../../../data/coin'
 import TestCoinContext from '../../../testUtils/TestCoinContext'
 
 describe('Home', () => {

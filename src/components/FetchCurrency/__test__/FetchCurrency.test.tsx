@@ -2,8 +2,6 @@ import React from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import FetchCurrency from '..'
-import { coinContext } from '../../../data/CoinContext'
-import { Coin } from '../../../data/coin'
 import TestCoinContext from '../../../testUtils/TestCoinContext'
 
 describe('FetchCurrency', () => {
