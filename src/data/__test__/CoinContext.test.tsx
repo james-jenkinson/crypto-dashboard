@@ -7,12 +7,17 @@ jest.mock('../../services/coinGecko')
 
 describe('CoinContext', () => {
   const ExampleConsumer: React.FC = () => {
-    const { isLoading, fetchCoin } = useContext(coinContext)
+    const { isLoading, coin, fetchCoin } = useContext(coinContext)
     useEffect(() => {
       fetchCoin('test')
     }, [])
 
-    return <div>{isLoading ? 'LOADING' : 'NOT LOADING'}</div>
+    return (
+      <>
+        <div>{isLoading ? 'LOADING' : 'NOT LOADING'}</div>
+        <div>{coin?.name}</div>
+      </>
+    )
   }
 
   it('should indicate loading status when fetched', async () => {
@@ -41,7 +46,7 @@ describe('CoinContext', () => {
     expect(notLoading).not.toBeInTheDocument()
   })
 
-  it('should indicated not loading after data is fetched', async () => {
+  it('should indicate not loading after data is fetched', async () => {
     const getCoin = coinGecko.getCoin as jest.Mock
     getCoin.mockResolvedValue('ok')
 
@@ -54,5 +59,21 @@ describe('CoinContext', () => {
     const notLoading = await screen.findByText('NOT LOADING')
 
     expect(notLoading).toBeInTheDocument()
+  })
+
+  it('should contain coin data after being fetched', async () => {
+    const getCoin = coinGecko.getCoin as jest.Mock
+    const data = { name: 'coin-name' }
+    getCoin.mockResolvedValue(data)
+
+    render(
+      <CoinContext>
+        <ExampleConsumer />
+      </CoinContext>,
+    )
+
+    const coinName = await screen.findByText('coin-name')
+
+    expect(coinName).toBeInTheDocument()
   })
 })
