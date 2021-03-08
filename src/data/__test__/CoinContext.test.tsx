@@ -1,13 +1,20 @@
 import React, { useContext, useEffect } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import CoinContext, { coinContext } from '../CoinContext'
 import coinGecko from '../../services/coinGecko'
+import { searchTable } from '../searchHistory'
 
 jest.mock('../../services/coinGecko')
 
 describe('CoinContext', () => {
+  beforeEach(async () => {
+    // To ensure that the rendered search term
+    // isn't left over from the previous test
+    await searchTable.clear()
+  })
+
   const ExampleConsumer: React.FC = () => {
-    const { isLoading, coin, fetchCoin } = useContext(coinContext)
+    const { isLoading, coin, fetchCoin, pastSearches } = useContext(coinContext)
     useEffect(() => {
       fetchCoin('test')
     }, [])
@@ -16,6 +23,7 @@ describe('CoinContext', () => {
       <>
         <div>{isLoading ? 'LOADING' : 'NOT LOADING'}</div>
         <div>{coin?.name}</div>
+        <div>{pastSearches[0]?.term}</div>
       </>
     )
   }
@@ -55,6 +63,9 @@ describe('CoinContext', () => {
         <ExampleConsumer />
       </CoinContext>,
     )
+    // We need to wait for the search term to appear to ensure
+    // we're not unmounting before the state has been updated
+    await waitFor(() => screen.getByText('test'))
 
     const notLoading = await screen.findByText('NOT LOADING')
 
@@ -71,8 +82,23 @@ describe('CoinContext', () => {
         <ExampleConsumer />
       </CoinContext>,
     )
+    // We need to wait for the search term to appear to ensure
+    // we're not unmounting before the state has been updated
+    await waitFor(() => screen.getByText('test'))
 
     const coinName = await screen.findByText('coin-name')
+
+    expect(coinName).toBeInTheDocument()
+  })
+
+  it('should include search in search history', async () => {
+    render(
+      <CoinContext>
+        <ExampleConsumer />
+      </CoinContext>,
+    )
+
+    const coinName = await screen.findByText('test')
 
     expect(coinName).toBeInTheDocument()
   })
