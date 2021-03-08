@@ -8,6 +8,7 @@ interface Props {
   coin?: Partial<Coin>
   isLoading?: boolean
   fetchCoin?: () => void
+  pastSearches?: Array<{ term: string; timestamp: number }>
   children: React.ReactNode
 }
 
@@ -16,7 +17,7 @@ const TestCoinContext: React.FC<Props> = (props) => {
     coin: merge({}, props.coin) as Coin,
     isLoading: props.isLoading || false,
     fetchCoin: props.fetchCoin || (() => undefined),
-    pastSearches: [],
+    pastSearches: props.pastSearches || [],
   }
   return <coinContext.Provider value={value}>{props.children}</coinContext.Provider>
 }
@@ -24,6 +25,7 @@ const TestCoinContext: React.FC<Props> = (props) => {
 TestCoinContext.propTypes = {
   children: PropTypes.node,
   coin: PropTypes.object,
+  pastSearches: PropTypes.array,
   isLoading: PropTypes.bool,
   fetchCoin: PropTypes.func,
 }
