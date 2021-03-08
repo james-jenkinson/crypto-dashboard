@@ -10,6 +10,6 @@ export interface CoinResponse {
     current_price: {
       usd: number
     }
+    price_change_percentage_24h: number
   }
-  price_change_percentage_24h: number
 }

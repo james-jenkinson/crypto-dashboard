@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import FetchCurrency from '..'
 import { coinContext } from '../../../data/CoinContext'
+import { Coin } from '../../../data/coin'
 
 describe('FetchCurrency', () => {
   it('should contain text input', () => {
@@ -24,7 +25,7 @@ describe('FetchCurrency', () => {
   it('should fetch coin data on submission', async () => {
     const fetchCoin = jest.fn()
     render(
-      <coinContext.Provider value={{ fetchCoin, isLoading: false }}>
+      <coinContext.Provider value={{ fetchCoin, isLoading: false, coin: {} as Coin }}>
         <FetchCurrency />
       </coinContext.Provider>,
     )

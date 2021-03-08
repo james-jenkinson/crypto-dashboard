@@ -6,7 +6,7 @@ const coinGecko = {
 }
 
 async function getCoin(coinId: string): Promise<CoinResponse> {
-  const path = `https://api.coingecko.com/api/v3/coins/${coinId}`
+  const path = `https://api.coingecko.com/api/v3/coins/${coinId}?tickers=false&community_data=false&developer_data=false&sparkline=false`
   const result = await fetch(path)
 
   return result.json()
