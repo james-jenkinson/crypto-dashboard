@@ -5,4 +5,5 @@ export interface Coin {
   marketCapRank: number
   currentPriceUsd: string
   percentagePriceChange24h: number
+  positiveChange: boolean
 }

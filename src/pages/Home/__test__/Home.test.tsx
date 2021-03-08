@@ -1,17 +1,14 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Home from '..'
-import { coinContext } from '../../../data/CoinContext'
-import { Coin } from '../../../data/coin'
+import TestCoinContext from '../../../testUtils/TestCoinContext'
 
 describe('Home', () => {
   it('should show loading indicator when loading', () => {
     render(
-      <coinContext.Provider
-        value={{ isLoading: true, fetchCoin: () => undefined, coin: {} as Coin }}
-      >
+      <TestCoinContext isLoading>
         <Home />
-      </coinContext.Provider>,
+      </TestCoinContext>,
     )
 
     const loading = screen.getByLabelText('loading')
@@ -21,11 +18,9 @@ describe('Home', () => {
 
   it('should not show loading indicator when not loading', () => {
     render(
-      <coinContext.Provider
-        value={{ isLoading: false, fetchCoin: () => undefined, coin: {} as Coin }}
-      >
+      <TestCoinContext isLoading={false}>
         <Home />
-      </coinContext.Provider>,
+      </TestCoinContext>,
     )
 
     const loading = screen.queryByLabelText('loading')

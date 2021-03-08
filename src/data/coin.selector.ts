@@ -11,6 +11,7 @@ export const coinSelector = (coinData: CoinResponse): Coin => {
     currentPriceUsd: `$${coinData.market_data?.current_price?.usd}`,
     marketCapRank: coinData.market_cap_rank,
     percentagePriceChange24h: coinData.market_data?.price_change_percentage_24h,
+    positiveChange: coinData.market_data?.price_change_percentage_24h >= 0,
   }
 }
 

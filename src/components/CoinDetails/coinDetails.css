@@ -1,0 +1,7 @@
+.coin-details__price-indicator--positive {
+  color: #008000;
+}
+
+.coin-details__price-indicator--negative {
+  color: #ff0000;
+}
