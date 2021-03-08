@@ -3,25 +3,23 @@ import { render, screen, within } from '@testing-library/react'
 import { Coin } from '../../../data/coin'
 import { coinContext } from '../../../data/CoinContext'
 import CoinDetails from '..'
+import TestCoinContext from '../../../testUtils/TestCoinContext'
 
 describe('CoinDetails', () => {
-  const contextValue = {
-    isLoading: false,
-    fetchCoin: () => undefined,
-    coin: {
-      currentPriceUsd: 'price-usd',
-      image: 'image-path',
-      marketCapRank: 99,
-      percentagePriceChange24h: 77,
-      name: 'coin-name',
-      symbol: 'coin-symbol',
-    } as Coin,
+  const coin = {
+    currentPriceUsd: 'price-usd',
+    image: 'image-path',
+    marketCapRank: 99,
+    percentagePriceChange24h: 77,
+    name: 'coin-name',
+    symbol: 'coin-symbol',
   }
+
   const testRender = () =>
     render(
-      <coinContext.Provider value={contextValue}>
+      <TestCoinContext coin={coin}>
         <CoinDetails />
-      </coinContext.Provider>,
+      </TestCoinContext>,
     )
 
   it('should display logo', () => {
@@ -80,19 +78,15 @@ describe('CoinDetails', () => {
 
   it('should indicate a positive price change', () => {
     render(
-      <coinContext.Provider
-        value={{
-          isLoading: false,
-          fetchCoin: () => undefined,
-          coin: {
-            positiveChange: true,
-            percentagePriceChange24h: 1,
-            currentPriceUsd: '$1',
-          } as Coin,
+      <TestCoinContext
+        coin={{
+          positiveChange: true,
+          percentagePriceChange24h: 1,
+          currentPriceUsd: '$1',
         }}
       >
         <CoinDetails />
-      </coinContext.Provider>,
+      </TestCoinContext>,
     )
 
     const priceChangeRow = screen
@@ -109,19 +103,15 @@ describe('CoinDetails', () => {
 
   it('should indicate a positive price change', () => {
     render(
-      <coinContext.Provider
-        value={{
-          isLoading: false,
-          fetchCoin: () => undefined,
-          coin: {
-            positiveChange: false,
-            percentagePriceChange24h: -1,
-            currentPriceUsd: '$1',
-          } as Coin,
+      <TestCoinContext
+        coin={{
+          positiveChange: false,
+          percentagePriceChange24h: -1,
+          currentPriceUsd: '$1',
         }}
       >
         <CoinDetails />
-      </coinContext.Provider>,
+      </TestCoinContext>,
     )
 
     const priceChangeRow = screen
