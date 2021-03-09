@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form'
 import { coinContext } from '../../data/CoinContext'
 
 const FetchCurrency: React.FC = () => {
-  const { fetchCoin } = useContext(coinContext)
+  const { fetchCoin, fetchMarketData } = useContext(coinContext)
   const { handleSubmit, register } = useForm()
   const onSubmit = (payload: { currency: string }) => {
     fetchCoin(payload.currency)
+    fetchMarketData(payload.currency)
   }
 
   return (

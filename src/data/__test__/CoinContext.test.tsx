@@ -14,15 +14,20 @@ describe('CoinContext', () => {
   })
 
   const ExampleConsumer: React.FC = () => {
-    const { isLoading, coin, fetchCoin, pastSearches } = useContext(coinContext)
+    const { isLoading, coin, fetchCoin, fetchMarketData, pastSearches, marketData } = useContext(
+      coinContext,
+    )
+
     useEffect(() => {
       fetchCoin('test')
+      fetchMarketData('test')
     }, [])
 
     return (
       <>
         <div>{isLoading ? 'LOADING' : 'NOT LOADING'}</div>
         <div>{coin?.name}</div>
+        <div>{marketData?.prices[0]}</div>
         <div>{pastSearches[0]?.term}</div>
       </>
     )
@@ -87,6 +92,25 @@ describe('CoinContext', () => {
     await waitFor(() => screen.getByText('test'))
 
     const coinName = await screen.findByText('coin-name')
+
+    expect(coinName).toBeInTheDocument()
+  })
+
+  it('should include market data after being fetched', async () => {
+    const getCoin = coinGecko.getMarketData as jest.Mock
+    const data = { prices: [[0, 999]] }
+    getCoin.mockResolvedValue(data)
+
+    render(
+      <CoinContext>
+        <ExampleConsumer />
+      </CoinContext>,
+    )
+    // We need to wait for the search term to appear to ensure
+    // we're not unmounting before the state has been updated
+    await waitFor(() => screen.getByText('test'))
+
+    const coinName = await screen.findByText('999')
 
     expect(coinName).toBeInTheDocument()
   })

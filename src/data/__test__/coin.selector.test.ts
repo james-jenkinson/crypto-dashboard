@@ -1,6 +1,6 @@
 import { CoinResponse } from '../../services/coin'
-import { Coin } from '../coin'
-import { coinSelector } from '../coin.selector'
+import { Coin, MarketData } from '../coin'
+import { coinSelector, marketDataSelector } from '../coin.selector'
 
 describe('Coin selector', () => {
   describe('selectCoin', () => {
@@ -31,25 +31,41 @@ describe('Coin selector', () => {
         symbol: 'symbol',
       } as Coin)
     })
+
+    it('should indicate when positive change', () => {
+      const coin = coinSelector({
+        market_data: {
+          price_change_percentage_24h: 1,
+        },
+      } as CoinResponse)
+
+      expect(coin.positiveChange).toBe(true)
+    })
+
+    it('should indicate when negative change', () => {
+      const coin = coinSelector({
+        market_data: {
+          price_change_percentage_24h: -1,
+        },
+      } as CoinResponse)
+
+      expect(coin.positiveChange).toBe(false)
+    })
   })
 
-  it('should indicate when positive change', () => {
-    const coin = coinSelector({
-      market_data: {
-        price_change_percentage_24h: 1,
-      },
-    } as CoinResponse)
+  describe('markedDataSelector', () => {
+    it('should correctly map the data', () => {
+      const result = marketDataSelector({
+        prices: [
+          [1609372800000, 123],
+          [1609459200000, 456],
+        ],
+      })
 
-    expect(coin.positiveChange).toBe(true)
-  })
-
-  it('should indicate when negative change', () => {
-    const coin = coinSelector({
-      market_data: {
-        price_change_percentage_24h: -1,
-      },
-    } as CoinResponse)
-
-    expect(coin.positiveChange).toBe(false)
+      expect(result).toMatchObject({
+        prices: [123, 456],
+        timestamps: [new Date(1609372800000), new Date(1609459200000)],
+      } as MarketData)
+    })
   })
 })

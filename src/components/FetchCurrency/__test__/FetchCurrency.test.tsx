@@ -37,4 +37,21 @@ describe('FetchCurrency', () => {
 
     await waitFor(() => expect(fetchCoin).toBeCalledWith('my-coin'))
   })
+
+  it('should fetch market data on submission', async () => {
+    const fetchMarketData = jest.fn()
+    render(
+      <TestCoinContext fetchMarketData={fetchMarketData}>
+        <FetchCurrency />
+      </TestCoinContext>,
+    )
+
+    const input = screen.getByRole('textbox', { name: 'Currency' })
+    const form = screen.getByRole('form')
+
+    userEvent.type(input, 'my-coin')
+    fireEvent.submit(form)
+
+    await waitFor(() => expect(fetchMarketData).toBeCalledWith('my-coin'))
+  })
 })

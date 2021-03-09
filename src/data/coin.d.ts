@@ -7,3 +7,8 @@ export interface Coin {
   percentagePriceChange24h: number
   positiveChange: boolean
 }
+
+export interface MarketData {
+  timestamps: Date[]
+  prices: number[]
+}
