@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { CoinResponse } from '../services/coin'
-import { Coin } from './coin'
+import { CoinResponse, MarketDataResponse } from '../services/coin'
+import { Coin, MarketData } from './coin'
 import { ReducerState as CoinReducerState } from './coin.reducer'
 
 export const coinSelector = (coinData: CoinResponse): Coin => {
@@ -22,3 +22,26 @@ export const selectCoin = (state: CoinReducerState): Coin | undefined =>
     }
     return coinSelector(state.coinData)
   }, [state.coinData])
+
+export const marketDataSelector = (marketData: MarketDataResponse): MarketData => {
+  const prices = new Array(marketData.prices.length) as Array<number>
+  const timestamps = new Array(marketData.prices.length) as Array<Date>
+
+  marketData.prices.forEach((price, i) => {
+    timestamps[i] = new Date(price[0])
+    prices[i] = price[1]
+  })
+
+  return {
+    prices,
+    timestamps,
+  }
+}
+
+export const selectMarketData = (state: CoinReducerState): MarketData | undefined =>
+  useMemo(() => {
+    if (!state.marketData) {
+      return
+    }
+    return marketDataSelector(state.marketData)
+  }, [state.marketData])

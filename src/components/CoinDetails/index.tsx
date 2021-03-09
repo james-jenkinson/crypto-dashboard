@@ -14,9 +14,11 @@ const CoinDetails: React.FC = () => {
 
   return (
     <>
-      <img alt={`Logo for ${coin.name}`} src={coin.image}></img>
       <table>
-        <caption>Details for {coin.name}</caption>
+        <caption>
+          Details for {coin.name}
+          <img alt={`Logo for ${coin.name}`} src={coin.image}></img>
+        </caption>
         <tbody>
           <tr>
             <th>Marketcap rank</th>

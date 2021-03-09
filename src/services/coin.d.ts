@@ -13,3 +13,9 @@ export interface CoinResponse {
     price_change_percentage_24h: number
   }
 }
+
+type Timestamp = number
+type Price = number
+export interface MarketDataResponse {
+  prices: [Timestamp, Price][]
+}
