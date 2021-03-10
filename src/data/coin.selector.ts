@@ -40,7 +40,7 @@ export const marketDataSelector = (marketData: MarketDataResponse): MarketData =
 
 export const selectMarketData = (state: CoinReducerState): MarketData | undefined =>
   useMemo(() => {
-    if (!state.marketData) {
+    if (!state.marketData?.prices) {
       return
     }
     return marketDataSelector(state.marketData)

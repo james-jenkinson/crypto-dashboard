@@ -14,9 +14,16 @@ describe('CoinContext', () => {
   })
 
   const ExampleConsumer: React.FC = () => {
-    const { isLoading, coin, fetchCoin, fetchMarketData, pastSearches, marketData } = useContext(
-      coinContext,
-    )
+    const {
+      isLoading,
+      coin,
+      coinId,
+      fetchCoin,
+      fetchMarketData,
+      pastSearches,
+      marketData,
+      hasError,
+    } = useContext(coinContext)
 
     useEffect(() => {
       fetchCoin('test')
@@ -29,6 +36,7 @@ describe('CoinContext', () => {
         <div>{coin?.name}</div>
         <div>{marketData?.prices[0]}</div>
         <div>{pastSearches[0]?.term}</div>
+        {hasError && <div>Error for {coinId}</div>}
       </>
     )
   }
@@ -97,9 +105,9 @@ describe('CoinContext', () => {
   })
 
   it('should include market data after being fetched', async () => {
-    const getCoin = coinGecko.getMarketData as jest.Mock
+    const getMarketData = coinGecko.getMarketData as jest.Mock
     const data = { prices: [[0, 999]] }
-    getCoin.mockResolvedValue(data)
+    getMarketData.mockResolvedValue(data)
 
     render(
       <CoinContext>
@@ -123,6 +131,24 @@ describe('CoinContext', () => {
     )
 
     const coinName = await screen.findByText('test')
+
+    expect(coinName).toBeInTheDocument()
+  })
+
+  it('should indicate an error when fetching coin data failed', async () => {
+    const getCoin = coinGecko.getCoin as jest.Mock
+    getCoin.mockRejectedValue('error')
+
+    render(
+      <CoinContext>
+        <ExampleConsumer />
+      </CoinContext>,
+    )
+    // We need to wait for the search term to appear to ensure
+    // we're not unmounting before the state has been updated
+    // await waitFor(() => screen.getByText('test'))
+
+    const coinName = await screen.findByText('Error for test')
 
     expect(coinName).toBeInTheDocument()
   })

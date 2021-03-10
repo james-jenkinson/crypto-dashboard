@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { object, string } from 'yup'
 
 const FetchCurrency: React.FC = () => {
-  const { fetchCoin, fetchMarketData } = useContext(coinContext)
+  const { fetchCoin, fetchMarketData, hasError, coinId } = useContext(coinContext)
   const { handleSubmit, register, errors } = useForm({
     resolver: yupResolver(
       object({
@@ -24,8 +24,17 @@ const FetchCurrency: React.FC = () => {
         Currency<span aria-hidden>*</span>
       </label>
       <input name="currency" aria-labelledby="label-currency" aria-required ref={register} />
-      {errors.currency && <span role="alert">{errors.currency.message}</span>}
+      {errors.currency && (
+        <span role="alert" aria-label="currency-error">
+          {errors.currency.message}
+        </span>
+      )}
       <button type="submit">Submit</button>
+      {hasError && (
+        <div role="alert" aria-label="api-error">
+          Unable to find details for {coinId}
+        </div>
+      )}
     </form>
   )
 }

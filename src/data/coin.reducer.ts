@@ -6,6 +6,7 @@ import { Search } from './searchHistory'
 export interface ReducerState {
   status: AsyncActionStatus
   coinData: CoinResponse | undefined
+  coinId: string | undefined
   searchHistory: Search[]
   marketData: MarketDataResponse | undefined
 }
@@ -13,6 +14,7 @@ export interface ReducerState {
 const initialState: ReducerState = {
   status: AsyncActionStatus.Initial,
   coinData: undefined,
+  coinId: undefined,
   marketData: undefined,
   searchHistory: [],
 }
@@ -29,6 +31,7 @@ const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
     case 'FETCH_COIN_START':
       return {
         ...state,
+        coinId: action.payload.coinId,
         status: AsyncActionStatus.Loading,
         coinData: undefined,
       }
