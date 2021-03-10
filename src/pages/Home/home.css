@@ -1,0 +1,10 @@
+.home__fetch-currency-form {
+  display: flex;
+  align-items: center;
+}
+
+.home__coin-details {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 300px auto;
+}
