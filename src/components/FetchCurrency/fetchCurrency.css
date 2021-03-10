@@ -9,3 +9,11 @@
 .form-input__input {
   display: block;
 }
+
+.form-input__input--error {
+  box-shadow: 0px 0px 2px 1px #ff0000;
+}
+
+.form-input__error {
+  color: #ff0000;
+}

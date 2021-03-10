@@ -67,8 +67,10 @@ describe('FetchCurrency', () => {
     fireEvent.submit(form)
 
     const error = await screen.findByRole('alert', { name: 'currency-error' })
+    const input = screen.getByRole('textbox', { name: 'Currency' })
 
     expect(error.textContent).toBe('please enter a coin identifier')
+    expect(input).toHaveClass('form-input__input--error')
   })
 
   it('should indicate when an error ocurred in fetching coin data', () => {
