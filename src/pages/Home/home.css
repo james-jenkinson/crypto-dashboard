@@ -1,6 +1,11 @@
 .home__fetch-currency-form {
   display: flex;
   align-items: center;
+  padding: 2rem;
+}
+
+.home__fetch-currency-form > :not(:last-child) {
+  margin-right: 1rem;
 }
 
 .home__coin-details {

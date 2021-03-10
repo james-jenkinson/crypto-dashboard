@@ -8,14 +8,16 @@ import { coinContext } from '../../data/CoinContext'
 import './home.css'
 
 function Home(): JSX.Element {
-  const { isLoading } = useContext(coinContext)
+  const { isLoading, coin } = useContext(coinContext)
 
   return (
-    <div className="home">
+    <div>
+      <h1>Search for details for a coin</h1>
       <div className="home__fetch-currency-form">
         <FetchCurrency />
         <PastSearches />
       </div>
+      {coin?.name && <h1>Details of {coin.name}</h1>}
       <div className="home__coin-details">
         <LoadingSpinner isLoading={isLoading} />
         <CoinDetails />
