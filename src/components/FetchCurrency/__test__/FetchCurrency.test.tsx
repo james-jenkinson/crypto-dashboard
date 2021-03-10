@@ -79,7 +79,9 @@ describe('FetchCurrency', () => {
     )
 
     const error = screen.getByRole('alert', { name: 'api-error' })
+    const input = screen.getByRole('textbox', { name: 'Currency' })
 
     expect(error.textContent).toBe('Unable to find details for coin-id')
+    expect(input).toHaveClass('form-input__input--error')
   })
 })

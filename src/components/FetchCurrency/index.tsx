@@ -27,13 +27,13 @@ const FetchCurrency: React.FC = () => {
         </label>
         <input
           name="currency"
-          className="form-input__input"
+          className={`form-input__input${errors.currency ? ' form-input__input--error' : ''}`}
           aria-labelledby="label-currency"
           aria-required
           ref={register}
         />
         {errors.currency && (
-          <span role="alert" aria-label="currency-error">
+          <span className="form-input__error" role="alert" aria-label="currency-error">
             {errors.currency.message}
           </span>
         )}
