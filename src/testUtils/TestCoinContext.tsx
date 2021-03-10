@@ -2,11 +2,12 @@ import React from 'react'
 import merge from 'lodash.merge'
 import PropTypes from 'prop-types'
 import { coinContext } from '../data/CoinContext'
-import { Coin } from '../data/coin'
+import { Coin, MarketData } from '../data/coin'
 
 interface Props {
   coin?: Partial<Coin>
   coinId?: string
+  marketData?: Partial<MarketData>
   isLoading?: boolean
   hasError?: boolean
   fetchCoin?: () => void
@@ -17,9 +18,9 @@ interface Props {
 
 const TestCoinContext: React.FC<Props> = (props) => {
   const value = {
-    coin: merge({}, props.coin) as Coin,
+    coin: props.coin ? (merge({}, props.coin) as Coin) : undefined,
     coinId: props.coinId || 'coin-id',
-    marketData: undefined,
+    marketData: props.marketData ? (merge({}, props.marketData) as MarketData) : undefined,
     isLoading: props.isLoading || false,
     hasError: props.hasError || false,
     fetchCoin: props.fetchCoin || (() => undefined),
@@ -33,6 +34,7 @@ TestCoinContext.propTypes = {
   children: PropTypes.node,
   coin: PropTypes.object,
   coinId: PropTypes.string,
+  marketData: PropTypes.object,
   pastSearches: PropTypes.array,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,

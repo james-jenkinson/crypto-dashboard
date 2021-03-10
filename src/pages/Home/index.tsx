@@ -11,13 +11,13 @@ function Home(): JSX.Element {
   const { isLoading, coin } = useContext(coinContext)
 
   return (
-    <div>
+    <div className="home">
       <h1>Search for details for a coin</h1>
       <div className="home__fetch-currency-form">
         <FetchCurrency />
         <PastSearches />
       </div>
-      {coin?.name && <h1>Details of {coin.name}</h1>}
+      {coin?.name && <h1 aria-label="coin-details-heading">Details of {coin.name}</h1>}
       <div className="home__coin-details">
         <LoadingSpinner isLoading={isLoading} />
         <CoinDetails />

@@ -1,3 +1,7 @@
+.home {
+  padding: 1rem;
+}
+
 .home__fetch-currency-form {
   display: flex;
   align-items: center;
