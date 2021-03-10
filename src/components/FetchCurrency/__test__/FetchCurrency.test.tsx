@@ -54,4 +54,20 @@ describe('FetchCurrency', () => {
 
     await waitFor(() => expect(fetchMarketData).toBeCalledWith('my-coin'))
   })
+
+  it('should show an error when no text was entered', async () => {
+    render(
+      <TestCoinContext>
+        <FetchCurrency />
+      </TestCoinContext>,
+    )
+
+    const form = screen.getByRole('form')
+
+    fireEvent.submit(form)
+
+    const error = await screen.findByRole('alert')
+
+    expect(error.textContent).toBe('please enter a coin identifier')
+  })
 })
