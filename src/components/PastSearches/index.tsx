@@ -7,6 +7,7 @@ const PastSearches: React.FC = () => {
   return (
     <div>
       <h2>Past searches</h2>
+      {pastSearches.length === 0 && <span>No searches yet</span>}
       <ul>
         {pastSearches.map((search) => (
           <li key={search.term}>{search.term}</li>

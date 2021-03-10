@@ -19,4 +19,14 @@ describe('PastSearches', () => {
     expect(screen.getByText('search-1')).toBeInTheDocument()
     expect(screen.getByText('search-2')).toBeInTheDocument()
   })
+
+  it('should indicate when there are no past searches', () => {
+    render(
+      <TestCoinContext pastSearches={[]}>
+        <PastSearches />
+      </TestCoinContext>,
+    )
+
+    expect(screen.getByText('No searches yet')).toBeInTheDocument()
+  })
 })
