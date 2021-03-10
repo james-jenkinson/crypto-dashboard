@@ -40,28 +40,40 @@ const CoinContext: React.FC = (props) => {
     })
   }, [])
 
-  const fetchCoin = useCallback(async (coinId: string) => {
-    dispatch({ type: 'FETCH_COIN_START', payload: { coinId } })
-    try {
-      const result = await coinGecko.getCoin(coinId)
-      saveSearchTerm(coinId).then(async () => {
-        const searches = await getPastSearches()
-        dispatch({ type: 'UPDATE_SEARCH_HISTORY', payload: { data: searches } })
-      })
-      dispatch({ type: 'FETCH_COIN_SUCCESS', payload: { coinId, data: result } })
-    } catch (error) {
-      dispatch({ type: 'FETCH_COIN_ERROR', payload: { coinId, error } })
-    }
-  }, [])
+  const fetchCoin = useCallback(
+    async (coinId: string) => {
+      if (state.coinId === coinId && state.coinData) {
+        return
+      }
+      dispatch({ type: 'FETCH_COIN_START', payload: { coinId } })
+      try {
+        const result = await coinGecko.getCoin(coinId)
+        saveSearchTerm(coinId).then(async () => {
+          const searches = await getPastSearches()
+          dispatch({ type: 'UPDATE_SEARCH_HISTORY', payload: { data: searches } })
+        })
+        dispatch({ type: 'FETCH_COIN_SUCCESS', payload: { coinId, data: result } })
+      } catch (error) {
+        dispatch({ type: 'FETCH_COIN_ERROR', payload: { coinId, error } })
+      }
+    },
+    [state.coinId, state.coinData],
+  )
 
-  const fetchMarketData = useCallback(async (coinId: string) => {
-    try {
-      const result = await coinGecko.getMarketData(coinId)
-      dispatch({ type: 'FETCH_MARKET_DATA_SUCCESS', payload: { data: result } })
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
+  const fetchMarketData = useCallback(
+    async (coinId: string) => {
+      if (state.coinId === coinId && state.marketData) {
+        return
+      }
+      try {
+        const result = await coinGecko.getMarketData(coinId)
+        dispatch({ type: 'FETCH_MARKET_DATA_SUCCESS', payload: { data: result } })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [state.coinId, state.marketData],
+  )
 
   const coin = selectCoin(state)
   const marketData = selectMarketData(state)

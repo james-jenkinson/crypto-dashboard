@@ -1,0 +1,19 @@
+.home {
+  padding: 1rem;
+}
+
+.home__fetch-currency-form {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+}
+
+.home__fetch-currency-form > :not(:last-child) {
+  margin-right: 1rem;
+}
+
+.home__coin-details {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 300px auto;
+}

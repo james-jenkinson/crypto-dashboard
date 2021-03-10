@@ -5,22 +5,24 @@ import { coinContext } from '../../data/CoinContext'
 const MarketPlot: React.FC = () => {
   const { marketData, coin } = useContext(coinContext)
 
-  if (!marketData) {
+  if (!marketData || !coin) {
     return null
   }
   return (
-    <Plot
-      data={[
-        {
-          x: marketData?.timestamps,
-          y: marketData?.prices,
-          type: 'scatter',
-          mode: 'lines+markers',
-          marker: { color: 'red' },
-        },
-      ]}
-      layout={{ width: 800, height: 600, title: `Changes in ${coin?.name} over last 7 days` }}
-    />
+    <div role="graphics-document">
+      <Plot
+        data={[
+          {
+            x: marketData?.timestamps,
+            y: marketData?.prices,
+            type: 'scatter',
+            mode: 'lines+markers',
+            marker: { color: 'red' },
+          },
+        ]}
+        layout={{ width: 800, height: 600, title: `Changes in ${coin?.name} over last 7 days` }}
+      />
+    </div>
   )
 }
 

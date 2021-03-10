@@ -5,17 +5,24 @@ import LoadingSpinner from '../../components/LoadingIndicator'
 import MarketPlot from '../../components/MarketPlot'
 import PastSearches from '../../components/PastSearches'
 import { coinContext } from '../../data/CoinContext'
+import './home.css'
 
 function Home(): JSX.Element {
-  const { isLoading } = useContext(coinContext)
+  const { isLoading, coin } = useContext(coinContext)
 
   return (
-    <div>
-      <FetchCurrency />
-      <PastSearches />
-      <LoadingSpinner isLoading={isLoading} />
-      <CoinDetails />
-      <MarketPlot />
+    <div className="home">
+      <h1>Search for details for a coin</h1>
+      <div className="home__fetch-currency-form">
+        <FetchCurrency />
+        <PastSearches />
+      </div>
+      {coin?.name && <h1 aria-label="coin-details-heading">Details of {coin.name}</h1>}
+      <div className="home__coin-details">
+        <LoadingSpinner isLoading={isLoading} />
+        <CoinDetails />
+        <MarketPlot />
+      </div>
     </div>
   )
 }

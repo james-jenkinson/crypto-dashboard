@@ -27,4 +27,19 @@ describe('Home', () => {
 
     expect(loading).not.toBeInTheDocument()
   })
+
+  it('should show heading when coin details were fetched', () => {
+    render(
+      <TestCoinContext coin={{ name: 'test-coin' }}>
+        <Home />
+      </TestCoinContext>,
+    )
+
+    const headingList = screen.getAllByRole('heading', { name: 'coin-details-heading' })
+
+    const coinDetailsHeading = headingList.find(
+      (heading) => heading.textContent === 'Details of test-coin',
+    )
+    expect(coinDetailsHeading).toBeInTheDocument()
+  })
 })

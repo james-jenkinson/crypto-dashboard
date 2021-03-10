@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { coinContext } from '../../data/CoinContext'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { object, string } from 'yup'
+import './fetchCurrency.css'
 
 const FetchCurrency: React.FC = () => {
   const { fetchCoin, fetchMarketData, hasError, coinId } = useContext(coinContext)
@@ -20,15 +21,23 @@ const FetchCurrency: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} aria-label="fetch-currency">
-      <label id="label-currency">
-        Currency<span aria-hidden>*</span>
-      </label>
-      <input name="currency" aria-labelledby="label-currency" aria-required ref={register} />
-      {errors.currency && (
-        <span role="alert" aria-label="currency-error">
-          {errors.currency.message}
-        </span>
-      )}
+      <div className="fetch-currency-form__body">
+        <label id="label-currency" className="form-input__label">
+          Currency<span aria-hidden>*</span>
+        </label>
+        <input
+          name="currency"
+          className="form-input__input"
+          aria-labelledby="label-currency"
+          aria-required
+          ref={register}
+        />
+        {errors.currency && (
+          <span role="alert" aria-label="currency-error">
+            {errors.currency.message}
+          </span>
+        )}
+      </div>
       <button type="submit">Submit</button>
       {hasError && (
         <div role="alert" aria-label="api-error">
