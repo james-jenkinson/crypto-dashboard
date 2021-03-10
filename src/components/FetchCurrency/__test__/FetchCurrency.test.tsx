@@ -66,8 +66,20 @@ describe('FetchCurrency', () => {
 
     fireEvent.submit(form)
 
-    const error = await screen.findByRole('alert')
+    const error = await screen.findByRole('alert', { name: 'currency-error' })
 
     expect(error.textContent).toBe('please enter a coin identifier')
+  })
+
+  it('should indicate when an error ocurred in fetching coin data', () => {
+    render(
+      <TestCoinContext hasError coinId={'coin-id'}>
+        <FetchCurrency />
+      </TestCoinContext>,
+    )
+
+    const error = screen.getByRole('alert', { name: 'api-error' })
+
+    expect(error.textContent).toBe('Unable to find details for coin-id')
   })
 })

@@ -11,6 +11,8 @@ interface CoinContextData {
   fetchCoin: (coinId: string) => void
   fetchMarketData: (coinId: string) => void
   isLoading: boolean
+  hasError: boolean
+  coinId: string | undefined
   pastSearches: Array<{ term: string; timestamp: number }>
   coin: Coin | undefined
   marketData: MarketData | undefined
@@ -20,6 +22,8 @@ export const coinContext = createContext<CoinContextData>({
   fetchCoin: () => undefined,
   fetchMarketData: () => undefined,
   isLoading: false,
+  hasError: false,
+  coinId: undefined,
   pastSearches: [],
   coin: undefined,
   marketData: undefined,
@@ -29,9 +33,11 @@ const CoinContext: React.FC = (props) => {
   const [state, dispatch] = coinReducer()
 
   useEffect(() => {
-    getPastSearches().then((searches) =>
-      dispatch({ type: 'UPDATE_SEARCH_HISTORY', payload: { data: searches } }),
-    )
+    getPastSearches().then((searches) => {
+      if (searches.length) {
+        dispatch({ type: 'UPDATE_SEARCH_HISTORY', payload: { data: searches } })
+      }
+    })
   }, [])
 
   const fetchCoin = useCallback(async (coinId: string) => {
@@ -49,8 +55,12 @@ const CoinContext: React.FC = (props) => {
   }, [])
 
   const fetchMarketData = useCallback(async (coinId: string) => {
-    const result = await coinGecko.getMarketData(coinId)
-    dispatch({ type: 'FETCH_MARKET_DATA_SUCCESS', payload: { data: result } })
+    try {
+      const result = await coinGecko.getMarketData(coinId)
+      dispatch({ type: 'FETCH_MARKET_DATA_SUCCESS', payload: { data: result } })
+    } catch (error) {
+      console.error(error)
+    }
   }, [])
 
   const coin = selectCoin(state)
@@ -60,8 +70,10 @@ const CoinContext: React.FC = (props) => {
     fetchCoin,
     fetchMarketData,
     isLoading: state.status === AsyncActionStatus.Loading,
+    hasError: state.status === AsyncActionStatus.Error,
     pastSearches: state.searchHistory,
     coin,
+    coinId: state.coinId,
     marketData,
   }
   return <coinContext.Provider value={value}>{props.children}</coinContext.Provider>
